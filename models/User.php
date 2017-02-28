@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\IdentityInterface;
+use yii\base\NotSupportedException;
+use yii\db\ActiveRecord;
 /**
  * This is the model class for table "administrador".
  *
@@ -14,7 +16,7 @@ use Yii;
  * @property string $usuario
  * @property string $senha
  */
-class User extends \yii\db\ActiveRecord
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
      * @inheritdoc
@@ -50,4 +52,34 @@ class User extends \yii\db\ActiveRecord
             'senha' => 'Senha',
         ];
     }
+
+    public static function findIdentity($id){
+		return static::findOne($id);
+	}
+
+	public static function findIdentityByAccessToken($token, $type = null){
+		throw new NotSupportedException();//I don't implement this method because I don't have any access token column in my database
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+	public static function findByUsername($username){
+		return self::findOne(['usuario'=>$username]);
+	}
+
+	public function validatePassword($password){
+		return $this->senha === $password;
+	}
+
+    public function getAuthKey()
+    {
+    	//throw new NotSupportedException();//You should not implement this method if you don't have authKey column in your database
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        //throw new NotSupportedException();//You should not implement this method if you don't have authKey column in your database
+    }
+
 }
