@@ -70,7 +70,15 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                                             ["label" => "Adicionar", "url" => ["users/create"]],
                                         ]
                                     ],
-                                    ["label" => "Error page", "url" => ["site/error-page"], "icon" => "close"],
+                                    [
+                                        "label" => "Gestao de Pessoas",
+                                        "icon" => "group",
+                                        "url" => "#",
+                                        "items" => [
+                                            ["label" => "Gerenciar", "url" => ["pessoas/index"]],
+                                            ["label" => "Adicionar", "url" => ["pessoas/adicionar"]],
+                                        ]
+                                    ],
                                     [
                                         "label" => "Widgets",
                                         "icon" => "th",
